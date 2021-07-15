@@ -1,0 +1,12 @@
+{
+  "name": "renx",
+  "displayName": "renx",
+  "expo": {
+    "name": "renx",
+    "slug": "renx",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
