@@ -1,7 +1,9 @@
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled.View`
+import { RectButton } from "react-native-gesture-handler";
+
+export const Container = styled(RectButton)`
   width: 100%;
   height: ${RFValue(132)}px;
 
@@ -50,12 +52,10 @@ export const Price = styled.Text`
   font-size: ${RFValue(15)};
 
   text-transform: uppercase;
-
 `;
 
 export const Type = styled.View``;
 export const CarImage = styled.Image`
   width: ${RFValue(167)}px;
-  height:${RFValue(85)}px;
-
+  height: ${RFValue(85)}px;
 `;
