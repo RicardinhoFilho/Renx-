@@ -12,7 +12,7 @@ import {
 
 import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
 
-import { SchedulingDetails } from "./src/screens/SchedulingDetails";
+import { SchedulingComplete } from "./src/screens/SchedulingComplete";
 import theme from "./src/styles/theme";
 
 export default function App() {
@@ -25,12 +25,12 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <ExpoLoading />;
+    return < ExpoLoading/>;
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <SchedulingDetails />
+      <SchedulingComplete />
     </ThemeProvider>
   );
 }
