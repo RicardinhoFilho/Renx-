@@ -3,6 +3,7 @@ import React from "react";
 import { BackButton } from "../../components/BackButton";
 import { ImageSlider } from "../../components/ImageSlider";
 import {Acessory} from "../../components/Acessory";
+import { Button } from "../../components/Button";
 
 import SpeedSvg from "../../assets/speed.svg";
 import AcelerateSvg from "../../assets/acceleration.svg";
@@ -25,6 +26,7 @@ import {
   Price,
   About,
   Acessoryes,
+  Footer,
 
 } from "./style";
 
@@ -68,6 +70,11 @@ export function CarDetails() {
           praça Real Maestranza
         </About>
       </Content>
+
+          <Footer>
+            <Button title="alugar"/>
+          </Footer>
+
     </Container>
   );
 }
