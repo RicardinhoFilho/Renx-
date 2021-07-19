@@ -17,29 +17,11 @@ export function Home() {
   const [cars, setCars] = useState({} as CarDTO[]);
   const [loading, setLoading] = useState(false);
 
-  const car = {
-    brand: "Audi",
-    name: "RS 5 Coupé",
-    rent: {
-      period: "Ao dia",
-      price: 120,
-    },
-    thumbnail: "https://cdn.picpng.com/audi/audi-red-a5-28597.png",
-  };
+ 
 
-  const car2 = {
-    brand: "PORSHEE",
-    name: "RS 5 Coupé",
-    rent: {
-      period: "Ao dia",
-      price: 120,
-    },
-    thumbnail:
-      "https://freepngimg.com/thumb/porsche/9-2-porsche-png-picture.png",
-  };
-
-  function handleCarDetails() {
-    navigation.navigate("CarDetails");
+  
+  function handleCarDetails(car: CarDTO) {
+    navigation.navigate("CarDetails", { car });
   }
 
   async function fetchCars() {
@@ -57,7 +39,6 @@ export function Home() {
 
   useEffect(() => {
     fetchCars();
-    // console.log('teste')
   }, []);
 
   return (
@@ -70,7 +51,7 @@ export function Home() {
       <Header>
         <HeaderContent>
           <Logo width={RFValue(108)} height={RFValue(12)} />
-          <TotalCars>Total de 12 carros</TotalCars>
+          <TotalCars>Total de {cars.length} carros</TotalCars>
         </HeaderContent>
       </Header>
 
@@ -81,7 +62,7 @@ export function Home() {
           data={cars}
           keyExtractor={(item: CarDTO) => item.id}
           renderItem={({ item }) => (
-            <Car data={item} onPress={handleCarDetails} />
+            <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
         />
       )}
