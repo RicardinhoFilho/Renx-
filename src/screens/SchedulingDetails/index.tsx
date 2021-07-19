@@ -3,7 +3,7 @@ import { Feather } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { BackButton } from "../../components/BackButton";
 import { ImageSlider } from "../../components/ImageSlider";
@@ -43,9 +43,15 @@ import {
   Footer,
 } from "./style";
 
+interface Params{
+  car: CarDTO,
+  dates: date,
+}
+
 export function SchedulingDetails() {
   const theme = useTheme();
   const navigation = useNavigation();
+  const route = useRoute();
 
   function handleConfirmRental(){
     navigation.navigate('SchedulingComplete');

@@ -4,56 +4,42 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
 import {
   Calendar as CustomCalendar,
+  DateCallbackHandler,
   LocaleConfig,
 } from "react-native-calendars";
 
-import { Container } from "./styles";
-import { color } from "react-native-reanimated";
+import { generateInterval } from "./generateInterval";
+
+import { ptBR } from "./localeConfig";
 import theme from "../../styles/theme";
 
-LocaleConfig.locales["pt-br"] = {
-  monthNames: [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    'Julho',
-    "Agosto",
-    "Setembro",
-    "Novembro",
-    "Dezembro",
-  ],
-  monthNamesShort: [
-    "Jan",
-    "Fev",
-    "Mar",
-    "Abr",
-    "Mai",
-    "Jun",
-    'Jul',
-    "Ago",
-    "Set",
-    "Nov",
-    "Dez",
-  ],
-  dayNames: [
-    "Domingo",
-    "Segunda",
-    "Terça",
-    "Quarta",
-    "Quinta",
-    "Sexta",
-    "Sábado",
-  ],
-  dayNamesShort: ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"],
-  today: "Hoje",
-};
+LocaleConfig.locales["pt-br"] = ptBR;
 
 LocaleConfig.defaultLocale = "pt-br";
 
-export function Calendar() {
+interface MarkedDatesProps {
+  [date: string]: {
+    color: string;
+    textColor: string;
+    disable?: boolean;
+    disableTouchEvent?: boolean;
+  };
+}
+
+interface CalendarProps {
+  markedDates: MarkedDatesProps;
+  onDayPress: DateCallbackHandler;
+}
+
+interface DayProps {
+  dateString: string;
+  dar: number;
+  month: number;
+  year: number;
+  timestamp: number;
+}
+
+function Calendar({ markedDates, onDayPress }: CalendarProps) {
   const theme = useTheme();
   return (
     <CustomCalendar
@@ -75,17 +61,21 @@ export function Calendar() {
         textDayFontFamily: theme.fonts.primary_400,
         textDayHeaderFontFamily: theme.fonts.primary_500,
         textDayHeaderFontSize: RFValue(10),
-        textMonthFontFamily:theme.fonts.secondary_600,
-        textMonthFontSize:RFValue(20),
-        monthTextColor:theme.colors.title,
+        textMonthFontFamily: theme.fonts.secondary_600,
+        textMonthFontSize: RFValue(20),
+        monthTextColor: theme.colors.title,
 
         arrowStyle: {
           marginHorizontal: -RFValue(15),
         },
       }}
-
-      firstDay={1}//Tem como padrão começar por domingo, assim trocar o first day para segunda que como padrão é o segundo, por isso está na posição do vetor de dias
-      minDate={new Date()}//Data mínima para aliguel é a de hoje
+      firstDay={1} //Tem como padrão começar por domingo, assim trocar o first day para segunda que como padrão é o segundo, por isso está na posição do vetor de dias
+      minDate={new Date()} //Data mínima para aliguel é a de hoje
+      markingType="period"
+      markedDates={markedDates}
+      onDayPress={onDayPress}
     />
   );
 }
+
+export { Calendar, MarkedDatesProps, DayProps, generateInterval };
