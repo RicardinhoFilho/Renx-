@@ -33,7 +33,7 @@ import {
 } from "./styles";
 import { getPlataformDate } from "../../utils/getPlataformDate";
 
-interface RentalPeriod {
+ interface RentalPeriod {
   start: number;
   startFormatted: string;
   end: number;
@@ -61,9 +61,9 @@ export function Scheduling() {
       Alert.alert(`Selecione o intervalo para alugar seu ${car.name}`);
       return;
     }
-
+    //console.log( markedDates)
     navigation.navigate("SchedulingDetails", {
-      car, dates: Object(markedDates)
+      car, dates: Object.keys(markedDates)
 
     });
   }
@@ -81,6 +81,7 @@ export function Scheduling() {
     setLastSelectedDate(end);
 
     const interval = generateInterval(start, end);
+    
     setMarkedDates(interval);
 
     const firstDate = Object.keys(interval)[0];
