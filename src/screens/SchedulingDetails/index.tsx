@@ -3,7 +3,9 @@ import { Feather } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
 
-import { Alert } from "react-native";
+
+
+import { Alert} from "react-native";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -63,17 +65,33 @@ export function SchedulingDetails() {
   const [rentalPeriod, setRentalPeriod] = useState({} as RentalPeriod);
 
   const { car, dates } = route.params as Params;
+  const [load, setLoad] = useState(false);
 
   async function handleConfirmRental() {
+    setLoad(true);
     const response = await api.get(`/schedules_bycars/${car.id}`);
-    console.log(response.data);
+    // console.log(response.data);
 
     const unavailable_dates = [...response.data.unavailable_dates, ...dates];
+
+    api.post('schedules_byuser',{
+      user_id:1,
+      car, 
+      startDate: format(getPlataformDate(new Date(dates[0])), "dd/MM/yyyy"),
+      endDate:  format(
+        getPlataformDate(new Date(dates[dates.length - 1])),
+        "dd/MM/yyyy")
+    })
 
     api
       .put(`/schedules_bycars/${car.id}`, { id: car.id, unavailable_dates })
       .then(() => navigation.navigate("SchedulingComplete"))
-      .catch(() => Alert.alert("Não foi possível completar seu agendamento!"));
+      .catch(() => {
+        Alert.alert("Não foi possível completar seu agendamento!");
+        setLoad(false);
+      });
+
+      
   }
 
   useEffect(() => {
@@ -154,12 +172,14 @@ export function SchedulingDetails() {
           </RentalPriceTotal>
         </RentalPriceDetails>
       </Content>
-
+           
       <Footer>
         <Button
           title="Alugar Agora"
           color={theme.colors.succes}
           onPress={handleConfirmRental}
+          enabled={!load}
+          loading={load}
         />
       </Footer>
     </Container>
