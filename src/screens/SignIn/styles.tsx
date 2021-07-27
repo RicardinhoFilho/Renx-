@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   padding: 0 ${RFValue(24)}px;
 

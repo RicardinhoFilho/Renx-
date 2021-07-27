@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { StatusBar } from "react-native";
 
 import { useTheme } from "styled-components";
@@ -7,6 +7,7 @@ import { Container, Header, Subtitle, Title, Form, Footer } from "./styles";
 
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
+import { InputPassword } from "../../components/InputPassword";
 
 export function SignIn() {
   const theme = useTheme();
@@ -37,7 +38,7 @@ export function SignIn() {
           autoCorrect={false}
           autoCapitalize={'none'}
         />
-        {/* <Input iconName="mail"/> */}
+        <InputPassword iconName={'lock'} placeholder={'Senha'}/> 
       </Form>
       <Footer>
         <Button

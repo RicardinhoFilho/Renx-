@@ -1,22 +1,20 @@
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { BorderlessButton } from "react-native-gesture-handler";
 
 export const Container = styled.View`
   flex-direction: row;
-
-  margin-bottom: ${RFValue(8)}px;
 `;
 
 export const IconContainer = styled.View`
-  height:${RFValue(65)}px;
-  width:${RFValue(55)}px;
-  justify-content:center;
+  height: ${RFValue(65)}px;
+  width: ${RFValue(55)}px;
+  justify-content: center;
   align-items: center;
 
   margin-right: ${RFValue(2)}px;
 
   background-color: ${({ theme }) => theme.colors.background_secondary};
-
 `;
 
 export const InputText = styled.TextInput`
@@ -27,4 +25,15 @@ export const InputText = styled.TextInput`
   font-size: ${RFValue(15)}px;
 
   padding: 0 ${RFValue(25)}px;
+`;
+
+export const ChangeVisibility = styled(BorderlessButton)`
+  height: ${RFValue(65)}px;
+  width: ${RFValue(55)}px;
+  justify-content: center;
+  align-items: center;
+
+  padding-right: ${RFValue(16)}px;
+
+  background-color: ${({ theme }) => theme.colors.background_secondary};
 `;
