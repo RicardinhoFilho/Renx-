@@ -42,7 +42,7 @@ export const MyCarsButton = styled(RectButton)`
   width: ${RFValue(60)}px;
   height: ${RFValue(60)}px;
 
-  background-color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.main};
 
   border-radius: ${RFValue(30)}px;
 
