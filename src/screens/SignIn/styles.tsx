@@ -2,8 +2,7 @@ import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
-export const Container = styled.ScrollView`
-  flex: 1;
+export const Container = styled.View`
   padding: 0 ${RFValue(24)}px;
 
   background-color: ${({ theme }) => theme.colors.background_primary};
@@ -30,7 +29,7 @@ export const Subtitle = styled.Text`
 
 export const Form = styled.View`
   width: 100%;
-  margin: ${RFValue(64)}px 0;
+  margin: ${RFValue(50)}px 0;
 `;
 
 export const Footer = styled.View``;
