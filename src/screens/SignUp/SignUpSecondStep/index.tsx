@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -12,6 +13,8 @@ import { Bullet } from "../../../components/Bullet";
 import { Button } from "../../../components/Button";
 import { InputPassword } from "../../../components/InputPassword";
 
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 import {
   Container,
   Header,
@@ -23,8 +26,35 @@ import {
   IputPasswordHandler,
 } from "./styles";
 
+interface Params {
+  user: {
+    name: string;
+    email: string;
+    driverLicense: string;
+  };
+}
+
 export function SignUpSecondStep() {
   const theme = useTheme();
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const { user } = route.params as Params;
+
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  function handleRegister() {
+    if(!password || !confirmPassword){
+      Alert.alert('Ops','Informe a senha e sua confirmação');
+      return;
+    }
+    if(password != confirmPassword){
+      Alert.alert('Ops','As senhas não conferem');
+      return;
+    }
+  }
+
   return (
     <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -32,8 +62,8 @@ export function SignUpSecondStep() {
           <Header>
             <BackButton />
             <Steps>
-              <Bullet active={true} />
               <Bullet />
+              <Bullet active={true} />
             </Steps>
           </Header>
 
@@ -49,13 +79,28 @@ export function SignUpSecondStep() {
           <Form>
             <FormTitle>2. Senha</FormTitle>
             <IputPasswordHandler>
-              <InputPassword iconName="lock" placeholder="Senha" />
+              <InputPassword
+                iconName="lock"
+                placeholder="Senha"
+                onChangeText={setPassword}
+                value={password}
+              />
             </IputPasswordHandler>
             <IputPasswordHandler>
-              <InputPassword iconName="lock" placeholder="Confirmar Senha" />
+              <InputPassword
+                iconName="lock"
+                placeholder="Confirmar Senha"
+                onChangeText={setConfirmPassword}
+                value={confirmPassword}
+              />
             </IputPasswordHandler>
 
-            <Button title={"Cadastrar"} color={theme.colors.succes} />
+            <Button
+              title={"Cadastrar"}
+              color={theme.colors.succes}
+              enabled={!!password && !!confirmPassword}
+              onPress={handleRegister}
+            />
           </Form>
         </Container>
       </TouchableWithoutFeedback>
