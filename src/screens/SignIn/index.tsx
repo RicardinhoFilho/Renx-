@@ -16,9 +16,11 @@ import { Container, Header, Subtitle, Title, Form, Footer } from "./styles";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { InputPassword } from "../../components/InputPassword";
+import { useNavigation } from "@react-navigation/native";
 
 export function SignIn() {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +36,7 @@ export function SignIn() {
       console.log("deu certo seu email");
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
-        Alert.alert('Ops',error.message);
+        Alert.alert("Ops", error.message);
       } else {
         Alert.alert(
           "Erro na autenticação",
@@ -42,6 +44,10 @@ export function SignIn() {
         );
       }
     }
+  }
+
+  function handleNewAccount() {
+    navigation.navigate("SignUpFirstStep");
   }
 
   return (
@@ -86,13 +92,11 @@ export function SignIn() {
             <Button
               title="Login"
               onPress={handleSignIn}
-              // enabled={false}
-              // loading={false}
+              enabled={!!email && !!password}
             />
             <Button
               title="Criar conta gratuita"
-              onPress={() => {}}
-              enabled={true}
+              onPress={handleNewAccount}
               loading={false}
               color={theme.colors.background_primary}
               light={true}
