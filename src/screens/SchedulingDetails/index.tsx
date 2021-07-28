@@ -3,9 +3,7 @@ import { Feather } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTheme } from "styled-components";
 
-
-
-import { Alert} from "react-native";
+import { Alert } from "react-native";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -74,24 +72,31 @@ export function SchedulingDetails() {
 
     const unavailable_dates = [...response.data.unavailable_dates, ...dates];
 
-    api.post('schedules_byuser',{
-      user_id:1,
-      car, 
+    api.post("schedules_byuser", {
+      user_id: 1,
+      car,
       startDate: format(getPlataformDate(new Date(dates[0])), "dd/MM/yyyy"),
-      endDate:  format(
+      endDate: format(
         getPlataformDate(new Date(dates[dates.length - 1])),
-        "dd/MM/yyyy")
-    })
+        "dd/MM/yyyy"
+      ),
+    });
 
     api
       .put(`/schedules_bycars/${car.id}`, { id: car.id, unavailable_dates })
-      .then(() => navigation.navigate("SchedulingComplete"))
+      .then(() =>
+        navigation.navigate("Confirmation", {
+          title: "Carro Alugado",
+          message: `Agora você só precisa ir \n
+          até a concessionária da RENTX \n
+          pergar seu automóvel`,
+          nextScreenRoute: "Home",
+        })
+      )
       .catch(() => {
         Alert.alert("Não foi possível completar seu agendamento!");
         setLoad(false);
       });
-
-      
   }
 
   useEffect(() => {
@@ -172,7 +177,7 @@ export function SchedulingDetails() {
           </RentalPriceTotal>
         </RentalPriceDetails>
       </Content>
-           
+
       <Footer>
         <Button
           title="Alugar Agora"

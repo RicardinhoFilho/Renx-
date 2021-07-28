@@ -53,6 +53,8 @@ export function SignUpSecondStep() {
       Alert.alert('Ops','As senhas não conferem');
       return;
     }
+
+    navigation.navigate('Confirmation', {nextScreenRoute:'SignIn', title:'Conta Criada', message:`Agora é só fazer login\ne aproveitar`})
   }
 
   return (
