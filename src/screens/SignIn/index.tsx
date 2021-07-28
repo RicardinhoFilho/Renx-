@@ -17,10 +17,12 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { InputPassword } from "../../components/InputPassword";
 import { useNavigation } from "@react-navigation/native";
+import {useAuth} from '../../hooks/auth';
 
 export function SignIn() {
   const theme = useTheme();
   const navigation = useNavigation();
+  const{signIn} = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +35,7 @@ export function SignIn() {
       });
 
       await schema.validate({ email, password });
-      console.log("deu certo seu email");
+      signIn({ email, password});
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         Alert.alert("Ops", error.message);

@@ -25,6 +25,7 @@ import {
   FormTitle,
   IputPasswordHandler,
 } from "./styles";
+import api from "../../../service/api";
 
 interface Params {
   user: {
@@ -44,17 +45,32 @@ export function SignUpSecondStep() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  function handleRegister() {
-    if(!password || !confirmPassword){
-      Alert.alert('Ops','Informe a senha e sua confirmação');
+  async function handleRegister() {
+    if (!password || !confirmPassword) {
+      Alert.alert("Ops", "Informe a senha e sua confirmação");
       return;
     }
-    if(password != confirmPassword){
-      Alert.alert('Ops','As senhas não conferem');
+    if (password != confirmPassword) {
+      Alert.alert("Ops", "As senhas não conferem");
       return;
     }
 
-    navigation.navigate('Confirmation', {nextScreenRoute:'SignIn', title:'Conta Criada', message:`Agora é só fazer login\ne aproveitar`})
+    await api
+      .post("/users", {
+        name: user.name,
+        email: user.email,
+        driver_license: user.driverLicense,
+        password,
+      })
+      .then(() => {
+        navigation.navigate("Confirmation", {
+          nextScreenRoute: "SignIn",
+          title: "Conta Criada",
+          message: `Agora é só fazer login\ne aproveitar`,
+        });
+      }).catch(()=>{
+        Alert.alert('Ops', 'Não foi possível cadastrar');
+      });
   }
 
   return (
