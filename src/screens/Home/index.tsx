@@ -78,13 +78,13 @@ export function Home() {
         />
       )}
 
-      <MyCarsButton onPress={handleOpenMyCars}>
+      {/* <MyCarsButton onPress={handleOpenMyCars}>
         <Ionicons
           name="ios-car-sport"
           size={RFValue(32)}
           color={theme.colors.shape}
         />
-      </MyCarsButton>
+      </MyCarsButton> */}
     </Container>
   );
 }
